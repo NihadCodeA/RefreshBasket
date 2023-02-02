@@ -1,0 +1,48 @@
+﻿@model List<Book>;
+@{
+    ViewData["Title"] = "Index";
+    int count = 0;
+}
+
+<div class="container-fluid mt-5">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1>Books</h1>
+        <div>
+            <a asp-area="manage" asp-controller="book" asp-action="create" class="btn btn-success">Add new book</a>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">CostPrice</th>
+                <th scope="col">SalePrice</th>
+                <th scope="col">Discount</th>
+                <th scope="col">PosterImage</th>
+                <th scope="col">CRUD</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Book book in Model)
+            {
+                count++;
+                <tr>
+                    <th scope="row">@count</th>
+                    <td>@book.Name </td>
+                    <td>@book.CostPrice </td>
+                    <td>@book.SalePrice </td>
+                    <td>@book.Discount</td>
+                    <td>
+                       <img style="max-width:150px;max-height:150px;" src="~/uploads/books/@book.BookImages.FirstOrDefault(x=>x.IsPoster==true)?.Image" alt="">
+                    </td>
+
+                    <td>
+                        <a asp-controller="book" asp-action="update" asp-route-id=@book.Id class="btn btn-info">Update</a>
+                        <a asp-controller="book" asp-action="delete" asp-route-id=@book.Id class="btn btn-danger bookDeleteBtn">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

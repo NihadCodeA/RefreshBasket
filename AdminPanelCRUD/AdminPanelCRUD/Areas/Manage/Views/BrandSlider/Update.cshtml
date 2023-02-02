@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Update";
+}
+@model BrandSlider;
+<div class="container">
+    <h1 class="mt-5">Create a new brand slider</h1>
+    <form enctype="multipart/form-data" method="post" asp-controller="brandslider" asp-action="update">
+        <div class="row">
+            <div class="form-group col-8">
+                <label asp-for="ImgFile">Upload image</label>
+                <input asp-for="ImgFile" type="file" accept="image/png,jpg,jpeg" class="form-control" placeholder="upload image">
+                <span asp-validation-for="ImgFile" class="text-danger"></span>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

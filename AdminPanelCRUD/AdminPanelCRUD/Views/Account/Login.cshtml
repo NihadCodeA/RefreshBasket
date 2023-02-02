@@ -1,0 +1,28 @@
+﻿@model LoginViewModel
+<div class="container">
+<div class="row">
+		<div class="col-sm-12 col-md-12 col-xs-12 col-lg-6 mb--30 mb-lg--0 mx-auto">
+		<!-- Login Form s-->
+		<form asp-action="login" method="post">
+			<div class="login-form">
+				<h4 class="login-title">New Customer</h4>
+				<p><span class="font-weight-bold">I am a new customer</span></p>
+				<div class="row">
+						<div class="col-md-12 col-12 mb--15">
+							<label asp-for="Username">Username</label>
+							<input asp-for="Username" class="mb-0 form-control" placeholder="Username">
+						</div>
+						<div class="col-md-12 col-12 mb--15">
+							<label asp-for="Password">Password</label>
+							<input asp-for="Password" class="mb-0 form-control" placeholder="Enter your Password">
+						</div>
+						<div asp-validation-summary="ModelOnly"></div>
+					<div class="col-md-12">
+						<button type="submit" class="btn btn-outlined">Login</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+</div>
