@@ -142,90 +142,150 @@
                 //}
             })
         }))
+        //addToBasketBtns.forEach(btn => btn.addEventListener("click", function (e) {
+        //    e.preventDefault();
+        //    let url = btn.getAttribute("href");
+        //    fetch(url).then(res => {
+        //        if (res.status == 200) {
+        //            Toastify({
+        //                text: "Kitab sebete elave olundu!",
+        //                duration: 3000,
+        //                newWindow: true,
+        //                close: true,
+        //                gravity: "top", // `top` or `bottom`
+        //                position: "right", // `left`, `center` or `right`
+        //                stopOnFocus: true, // Prevents dismissing of toast on hover
+        //                style: {
+        //                    background: "linear-gradient(to right, #00b09b, #96c93d)",
+        //                },
+        //            }).showToast();
+        //            fetch('/book/getbasket')
+        //                .then((response) => response.json())
+        //                .then((data) => {
+        //                    console.log(data);
+        //                    let container = document.querySelector(".single-cart-block");
+        //                    container.innerHTML = "";
+        //                    for (let i = 0; i < data.length; i++) {
+        //                        if (data[i].count > 0) {
+        //                            container.innerHTML += `
+        //                             <div class="cart-product basketItem">
+        //                                <a href="product-details.html" class="image">
+        //                                  <img class="basketItemImage" src="/uploads/books/${data[i].image}" alt="">
+        //                                   </a>
+        //                                  <div class="content">
+        //                                    <h3 class="title">
+        //                                  <a class="basketItemTitle" href="product-details.html">
+        //                                       ${data[i].name}
+        //                                   </a>
+        //                                  </h3>
+        //                                    <p class="price"><span class="qty basketItemCount">${data[i].count} ×</span>£ ${data[i].price}</p>
+        //                                          <a href="/book/removefrombasket?bookId=${data[i].bookId}" class="cross-btn"><i class="fas fa-times"></i></a>
+        //                                   </div>
+        //                             </div>
+        //                             `;
+        //                        }
+        //                    }
+        //                    //let basketItems = document.querySelectorAll(".basketItem")
+        //                    //basketItems.querySelector(".cross-btn").forEach(btn => btn.addEventListener("click", function (e) {
+        //                    //    e.preventDefault();
+        //                    //    let url = btn.getAttribute("href");
+        //                    //    fetch(url).then(res => {
+        //                    //        if (res.status == 200) {
+        //                    //            fetch('/book/getbasket')
+        //                    //                .then((response) => response.json())
+        //                    //                .then((data) => {
+        //                    //                    console.log(data);
+        //                    //                    for (let i = 0; i < data.length; i++) {
+        //                    //                        let basketItemCount = document.querySelector(".basketItemCount");
+        //                    //                        //if (data[i].count == 0) btn.parentElement.parentElement.remove()
+        //                    //                        //else {
+        //                    //                        basketItemCount.textContent = data[i].count
+        //                    //                        //}
+        //                    //                    }
+        //                    //                })
+        //                    //        }
+        //                    //    })
+        //                    //}))
+                       
+        //                })
+        //        }
+        //        else {
+        //            Toastify({
+        //                text: "Kitab sebete elave oluna bilmedi!",
+        //                duration: 3000,
+        //                newWindow: true,
+        //                close: true,
+        //                gravity: "top", // `top` or `bottom`
+        //                position: "right", // `left`, `center` or `right`
+        //                stopOnFocus: true, // Prevents dismissing of toast on hover
+        //                style: {
+        //                    background: "linear-gradient(to right, #ffafcc, #e76f51)",
+        //                },
+        //            }).showToast();
+        //        }
+        //    })
+
+        //}))
+        deleteBtns.forEach((btn,i) => btn.addEventListener("click", function (e) {
+            e.preventDefault()
+            fetch(btn.getAttribute("href")).then(response => response.json()).then(response => {
+                Toastify({
+                    text: "Deleted from shopping cart",
+                    gravity: "bottom",
+                    duration: 3000,
+                    style: {
+                        background: "red"
+                    }
+                }).showToast();
+                console.log(response[i])
+                if (response[i].count <= 0) btn.parentElement.parentElement.remove()
+                else {
+                    btn.parentElement.querySelector("#basketItemCount").innerHTML = response[i].count
+                }
+            })
+        }))
         addToBasketBtns.forEach(btn => btn.addEventListener("click", function (e) {
             e.preventDefault();
-            let url = btn.getAttribute("href");
+            url = btn.getAttribute("href")
             fetch(url).then(res => {
                 if (res.status == 200) {
                     Toastify({
-                        text: "Kitab sebete elave olundu!",
+                        text: "Added to shopping cart",
+                        gravity: "bottom",
                         duration: 3000,
-                        newWindow: true,
-                        close: true,
-                        gravity: "top", // `top` or `bottom`
-                        position: "right", // `left`, `center` or `right`
-                        stopOnFocus: true, // Prevents dismissing of toast on hover
                         style: {
-                            background: "linear-gradient(to right, #00b09b, #96c93d)",
-                        },
+                            background: "green"
+                        }
                     }).showToast();
-                    fetch('/book/getbasket')
-                        .then((response) => response.json())
-                        .then((data) => {
-                            console.log(data);
-                            let container = document.querySelector(".single-cart-block");
-                            container.innerHTML = "";
-                            for (let i = 0; i < data.length; i++) {
-                                if (data[i].count > 0) {
-                                    container.innerHTML += `
-                                     <div class="cart-product basketItem">
-                                        <a href="product-details.html" class="image">
-                                          <img class="basketItemImage" src="/uploads/books/${data[i].image}" alt="">
-                                           </a>
-                                          <div class="content">
-                                            <h3 class="title">
-                                          <a class="basketItemTitle" href="product-details.html">
-                                               ${data[i].name}
-                                           </a>
-                                          </h3>
-                                            <p class="price"><span class="qty basketItemCount">${data[i].count} ×</span>£ ${data[i].price}</p>
-                                                  <a href="/book/removefrombasket?bookId=${data[i].bookId}" class="cross-btn"><i class="fas fa-times"></i></a>
-                                           </div>
-                                     </div>
-                                     `;
+                    fetch("/book/getbasket").then(response =>response.text())
+                    .then((html)=> {
+                            block = document.querySelector(".single-cart-block")
+                        block.innerHTML = html
+                        block.querySelectorAll(".btn-deletebook").forEach((btn,i)=> btn.addEventListener("click", function (e) {
+                            e.preventDefault()
+                            fetch(btn.getAttribute("href")).then(response => response.json()).then(response => {
+                                Toastify({
+                                    text: "Deleted from shopping cart",
+                                    gravity: "bottom",
+                                    duration: 3000,
+                                    style: {
+                                        background: "red"
+                                    }
+                                }).showToast();
+                                console.log(response[i])
+                                if (response[i].count <= 0) btn.parentElement.parentElement.remove()
+                                else {
+                                        btn.parentElement.querySelector("#basketItemCount").innerHTML = response[i].count
                                 }
-                            }
-                            //let basketItems = document.querySelectorAll(".basketItem")
-                            //basketItems.querySelector(".cross-btn").forEach(btn => btn.addEventListener("click", function (e) {
-                            //    e.preventDefault();
-                            //    let url = btn.getAttribute("href");
-                            //    fetch(url).then(res => {
-                            //        if (res.status == 200) {
-                            //            fetch('/book/getbasket')
-                            //                .then((response) => response.json())
-                            //                .then((data) => {
-                            //                    console.log(data);
-                            //                    for (let i = 0; i < data.length; i++) {
-                            //                        let basketItemCount = document.querySelector(".basketItemCount");
-                            //                        //if (data[i].count == 0) btn.parentElement.parentElement.remove()
-                            //                        //else {
-                            //                        basketItemCount.textContent = data[i].count
-                            //                        //}
-                            //                    }
-                            //                })
-                            //        }
-                            //    })
-                            //}))
-                       
-                        })
+                            })
+                        }))
+                    })
                 }
-                else {
-                    Toastify({
-                        text: "Kitab sebete elave oluna bilmedi!",
-                        duration: 3000,
-                        newWindow: true,
-                        close: true,
-                        gravity: "top", // `top` or `bottom`
-                        position: "right", // `left`, `center` or `right`
-                        stopOnFocus: true, // Prevents dismissing of toast on hover
-                        style: {
-                            background: "linear-gradient(to right, #ffafcc, #e76f51)",
-                        },
-                    }).showToast();
-                }
+                else alert("Unknown error")
             })
-
         }))
+
+
     </script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <!-- Use Minified Plugins Version For Fast Page Load -->

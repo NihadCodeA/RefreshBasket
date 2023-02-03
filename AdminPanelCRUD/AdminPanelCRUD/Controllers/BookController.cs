@@ -126,8 +126,7 @@ namespace AdminPanelCRUD.Controllers
             }
             basketItemStr = JsonConvert.SerializeObject(basketItems);
             HttpContext.Response.Cookies.Append("BasketItems", basketItemStr);
-            //return Ok();
-            return RedirectToAction("Index","Home");
+            return Json(basketItems);
         }
         public IActionResult GetBasket()
         {
@@ -138,7 +137,8 @@ namespace AdminPanelCRUD.Controllers
             {
                 basketItems = JsonConvert.DeserializeObject<List<BasketItemViewModel>>(basketItemStr);
             }
-            return Json(basketItems);
+            //return Json(basketItems);
+            return PartialView("_BasketItemPartial",basketItems);
         }
 
         public async Task<IActionResult> Checkout()
